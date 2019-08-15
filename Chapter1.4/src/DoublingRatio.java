@@ -1,8 +1,6 @@
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
-import java.awt.image.TileObserver;
-
 /**
  * @Author:Gao
  * @Date:2019-08-13 10:30
