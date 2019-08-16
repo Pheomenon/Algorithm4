@@ -67,7 +67,7 @@ class Deque<Item> implements Iterable<Item>{
         first.item = item;
         if(isEmpty()){
             first.head = first;
-            first.tail = last;
+            first.tail = null;
             last = first;
         }
         else {
