@@ -1,4 +1,5 @@
 import java.io.File;
+import java.util.Iterator;
 
 /**
  * @Author:Gao
@@ -16,9 +17,9 @@ public class A1_3_41 {
         q.enqueue(3);
         q.enqueue(2);
         q.enqueue(1);
+        q.dequeue();
         Queue341<Integer> r = new Queue341<>(q);
         r.dequeue();
-        r.enqueue(9);
         System.out.println("r : ");
         while (r.first != null) {
             System.out.print(r.first.item + " ");
@@ -33,65 +34,70 @@ public class A1_3_41 {
     }
 }
 
-class Queue341<Item> {
+class Queue341<Item> implements Iterable<Item> {
     Queue341() {
 
     }
 
     Queue341(Queue341 oldQueue) {
-        Queue341 newQueue = new Queue341();
-        newQueue.N = oldQueue.N;
-        Node current = oldQueue.first;
-        for (int i = 0; i < newQueue.N; i++) {
-            Node oldfirst = newQueue.first;
-            newQueue.first = new Node();
-            newQueue.first.item = current.item;
-            if (N == 0) {
-                newQueue.first.next = null;
-                N++;
-            } else oldfirst.next = newQueue.first;
-            current = current.next;
+        for (Object i : oldQueue) {
+            Node oldlast = last;
+            last = new Node();
+            last.item = (Item) i;
+            last.next = null;
+            if (isEmpty()) {
+                first = last;
+            } else oldlast.next = last;
+            N++;
         }
-        first = newQueue.first;
-//        Node current = first;
-//        boolean flag = false;
-//        while (current != null){
-//            if(!flag){
-//                First = new Node();
-//                First.item = current.item;
-//                current = current.next;
-//                flag = true;
-//            }
-//            Node oldFirst = First;
-//            First = new Node();
-//            First.item = current.item;
-//            First.next = oldFirst;
-//        }
     }
 
     class Node {
         Item item;
         Node next;
     }
-
     int N = 0;
     Node first;
+    Node last;
 
-    //    Node First;
     public boolean isEmpty() {
-        return N == 0;
+        return first == null;
     }
 
     public void enqueue(Item item) {
-        Node oldFirst = first;
-        first = new Node();
-        first.item = item;
-        first.next = oldFirst;
+        Node oldLast = last;
+        last = new Node();
+        last.item = item;
+        last.next = null;
+        if (isEmpty()) first = last;
+        else oldLast.next = last;
         N++;
     }
 
     public void dequeue() {
         first = first.next;
+        if (isEmpty()) last = null;
         N--;
+    }
+
+    public Iterator<Item> iterator() {
+        return new ListIterator();
+    }
+
+    private class ListIterator implements Iterator<Item> {
+        private Node current = first;
+
+        public boolean hasNext() {
+            return current != null;
+        }
+
+        public void remove() {
+        }
+
+        public Item next() {
+            Item item = current.item;
+            current = current.next;
+            return item;
+        }
     }
 }
