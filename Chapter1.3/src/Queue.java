@@ -44,6 +44,5 @@ public class Queue<Item> {
             current = current.next;
             return item;
         }
-
     }
 }
