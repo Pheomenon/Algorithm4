@@ -2,8 +2,8 @@
  * @Author:Gao
  * @Date:2019-08-18 10:46
  */
-class Test {
-    static int target = 100;
+class A1_4_34 {
+    static int target = 1024;
     static int tries = 0;
     static int i = 0;
 
@@ -11,11 +11,10 @@ class Test {
     }
 
     public static void main(String[] args) {
-
         try {
             gauss(0);
         } catch (StopMsgException e) {
-            System.out.println(tries);
+            System.out.println("tries: " + tries);
         }
     }
 
@@ -23,36 +22,23 @@ class Test {
         return Integer.compare(num, target);
     }
 
-    public static void gauss() {
-        while (referee(getPow(i)) != 1) {
-            if (referee(getPow(i)) == 0) {
-                tries++;
-                return;
-            }
-            tries++;
-            i++;
-        }
-        tries++;
-        gauss(--i);
-    }
-
     public static void gauss(int base) {
         int x = 0;
-        while (referee(getPow(x) + base) != 0) {
-            if (referee(getPow(x + 1) + base) == 0) {
-                System.out.println(getPow(x) + base);
+        int result = -1;
+        while (result <= 0) {
+            result = referee(getPow(x) + base);
+            System.out.println(getPow(x) + base);
+            tries++;
+            if (result == 0) {
                 throw new StopMsgException();
             }
-            if (referee(getPow(x) + base) == -1 && referee(getPow(x + 1) + base) == 1) {
-                System.out.println(getPow(x) + base);
-                base = getPow(x) + base;
-                tries += 2;
-                gauss(base);
-            }
-            System.out.println(getPow(x) + base);
-            tries += 3;
             x++;
         }
+        x -= 2;
+                System.out.println(getPow(x) + base);
+                base = getPow(x) + base;
+        tries++;
+                gauss(base);
     }
 
     public static int getPow(int x) {
