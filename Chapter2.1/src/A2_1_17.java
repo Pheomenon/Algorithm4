@@ -21,12 +21,12 @@ public class A2_1_17 {
         for (int i = 0; i < size; i++) {
             array[i] = StdRandom.uniform();
         }
-        Insertion217.sort(array);
-        Selection217.sort(array);
+        Insertion117.sort(array);
+//        Selection117.sort(array);
     }
 }
 
-class Insertion217 {
+class Insertion117 {
     public static void sort(Double[] a) throws InterruptedException {
         for (int i = 0; i < a.length; i++) {
             StdDraw.setXscale(-1, 100);
@@ -89,7 +89,7 @@ class Insertion217 {
 //    }
 }
 
-class Selection217 {
+class Selection117 {
     public static void sort(Double[] a) {
         for (int i = 0; i < a.length; i++) {
             StdDraw.setXscale(-1, 100);

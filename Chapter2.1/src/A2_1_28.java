@@ -1,12 +1,31 @@
-import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
 
 /**
  * @Author:Gao
- * @Date:2019-08-19 10:17
+ * @Date:2019-08-20 10:15
  */
-public class SortCompare {
+/*
+相等的主键。对于主键仅可能取两种值的数组，评估和验证插入排序和选择排序的性能，
+假设两种主键值出现的概率相同
+ */
+public class A2_1_28 {
+    public static void main(String[] args) {
+        SortCompare128 sortCompare128 = new SortCompare128();
+        sortCompare128.N = 1000;
+        sortCompare128.T = 100;
+        sortCompare128.alg1 = "Selection";
+        sortCompare128.alg2 = "Insertion";
+        sortCompare128.start();
+    }
+}
+
+class SortCompare128 {
+    String alg1;
+    String alg2;
+    int N;
+    int T;
+
     public static double time(String alg, Double[] a) {
         Stopwatch timer = new Stopwatch();
         if (alg.equals("Insertion")) Insertion.sort(a);
@@ -27,17 +46,13 @@ public class SortCompare {
         for (int t = 0; t < T; t++) {
             //进行一次测试（生成一个数组并排序）
             for (int i = 0; i < N; i++)
-                a[i] = StdRandom.uniform();
+                a[i] = Double.valueOf(StdRandom.uniform(0, 2));
             total += time(alg, a);
         }
         return total;
     }
 
-    public static void main(String[] args) {
-        String alg1 = StdIn.readString();
-        String alg2 = StdIn.readString();
-        int N = StdIn.readInt();
-        int T = StdIn.readInt();
+    public void start() {
         double t1 = timeRandomInput(alg1, N, T); //算法1的总时间
         double t2 = timeRandomInput(alg2, N, T); //算法2的总时间
         StdOut.printf("For %d random Doubles\n   %s is ", N, alg1);

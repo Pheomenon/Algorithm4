@@ -4,9 +4,31 @@ import edu.princeton.cs.algs4.StdRandom;
 
 /**
  * @Author:Gao
- * @Date:2019-08-19 10:17
+ * @Date:2019-08-20 09:50
  */
-public class SortCompare {
+/*
+希尔排序的用时是次平方级的。在你的计算机上用SortCompare比较希尔排序和插入排序以及选择排序
+测试数组的大小按照2的幂次递增，从128开始
+ */
+public class A2_1_27 {
+    public static void main(String[] args) {
+        SortCompare127 sortCompare127 = new SortCompare127();
+        for (int i = 128; i < Math.pow(2, 20); i *= 2) {
+            sortCompare127.N = i;
+            sortCompare127.T = 10;
+            sortCompare127.alg1 = "Shell";
+            sortCompare127.alg2 = "Insertion";
+            sortCompare127.start();
+        }
+    }
+}
+
+class SortCompare127 {
+    String alg1;
+    String alg2;
+    int N;
+    int T;
+
     public static double time(String alg, Double[] a) {
         Stopwatch timer = new Stopwatch();
         if (alg.equals("Insertion")) Insertion.sort(a);
@@ -33,11 +55,7 @@ public class SortCompare {
         return total;
     }
 
-    public static void main(String[] args) {
-        String alg1 = StdIn.readString();
-        String alg2 = StdIn.readString();
-        int N = StdIn.readInt();
-        int T = StdIn.readInt();
+    public void start() {
         double t1 = timeRandomInput(alg1, N, T); //算法1的总时间
         double t2 = timeRandomInput(alg2, N, T); //算法2的总时间
         StdOut.printf("For %d random Doubles\n   %s is ", N, alg1);
